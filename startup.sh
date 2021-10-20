@@ -1,7 +1,7 @@
 #!/bin/sh
 
 # nohup with background process (&) is the preferred way to put background something in docker
-nohup java -Dconfig.file=application.conf -jar openscoring-server-executable-2.0.4.jar --host localhost &
+nohup java -Dconfig.file=application.conf -jar openscoring-server-executable-2.0.4.jar &
 # wait for openscoring server to be available
 sleep 5s
 # the DirectoryDeployer will watch the specified directory for models and deploy them. 
