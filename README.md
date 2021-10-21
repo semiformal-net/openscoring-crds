@@ -41,6 +41,31 @@ There should be a Model REST API endpoint ready at [http://localhost:8080/opensc
 
 Each model in the `models` directory should be deployed.
 
+# GCP #
+
+This will run in GCP and deploy the openscoring API in cloud run. You may need to grant some permissions so cloud run and cloud build play nice:
+
+```
+PROJECT_ID=credit-risk-data-science
+PROJECT_NUMBER=$(gcloud projects describe $PROJECT_ID --format='value(projectNumber)')
+# open https://console.cloud.google.com/cloud-build/settings and click "enable API"
+# grant cloud run admin to cloud build service account
+gcloud projects add-iam-policy-binding $PROJECT_ID \
+    --member=serviceAccount:$PROJECT_NUMBER@cloudbuild.gserviceaccount.com \
+    --role=roles/run.admin
+gcloud iam service-accounts add-iam-policy-binding \
+    $PROJECT_NUMBER-compute@developer.gserviceaccount.com \
+    --member=serviceAccount:$PROJECT_NUMBER@cloudbuild.gserviceaccount.com \
+    --role=roles/iam.serviceAccountUser
+```
+
+Once that works you can the build submit command to build the image and deploy the image to cloud run. It is deployed without authentication so please configure authentication before using this for production.
+
+```
+gcloud builds submit
+```
+
+Cloud run will scale to accommodate the load to your APIs. Once that is working you can connect the build job so that it triggers on [changes to the repository](https://cloud.google.com/build/docs/automating-builds/create-manage-triggers). Now any models you add will be autodeployed!
 
 # Security #
 
