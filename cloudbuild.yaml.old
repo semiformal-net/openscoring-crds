@@ -13,4 +13,4 @@ steps:
 
 - id: 'deploy image'
   name: 'gcr.io/cloud-builders/gcloud'
-  args: ['run', 'deploy', 'openscoring-serving', '--image', 'gcr.io/credit-risk-data-science/openscoring-serving:latest', '--region', 'us-central1','--cpu','1','--ingress','all','--max-instances','2','--port','8080','--allow-unauthenticated']
+  args: ['run', 'deploy', 'openscoring-serving', '--image', 'gcr.io/credit-risk-data-science/openscoring-serving:latest', '--region', 'us-central1','--cpu','1','--ingress','all','--max-instances','2','--port','8080','--allow-unauthenticated','--min-instances','1']

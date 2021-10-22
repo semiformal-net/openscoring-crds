@@ -43,6 +43,16 @@ Each model in the `models` directory should be deployed.
 
 # GCP #
 
+## App engine
+
+I had some issues deploying this with cloud run. I believe it is cheaper to deploy with run, but I found it more reliable with app engine (even with min-instances=1?!). The instructions below for cloud run will work, but I suggest app engine instead.
+
+```
+gcloud app deploy
+```
+
+## Cloud run
+
 This will run in GCP and deploy the openscoring API in cloud run. You may need to grant some permissions so cloud run and cloud build play nice:
 
 ```
